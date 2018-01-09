@@ -3,6 +3,7 @@ require 'yaml'
 require 'mysql2'
 require 'sequel'
 require 'faker'
+require 'rufus-mnemo'
 
 I18n.enforce_available_locales = false
 
@@ -77,7 +78,7 @@ class Obfuscator
           name: Faker::Lorem.sentence(2)[0, 255],
           description: Faker::Lorem.sentences(10).join(' '),
           homepage: Faker::Internet.url,
-          identifier: Faker::Lorem.word
+          identifier: get_identifier
           )
         end
       end
@@ -280,5 +281,18 @@ class Obfuscator
       end
     end
 
- end
+    def get_identifier
+      @identifiers ||= []
+      identifier = nil
+
+      loop do
+        identifier = Rufus::Mnemo.to_s(rand(1.."1#{'0' * rand(2..8)}".to_i))
+        break unless @identifiers.include? identifier
+      end
+
+      @identifiers << identifier
+
+      identifier
+    end
+  end
 end
