@@ -50,7 +50,7 @@ class Obfuscator
         db[:users].select(:id).each do |user|
           db[:users].where(id: user[:id]).update(
             login: Faker::Internet.user_name,
-            hashed_password: '1b130fa7d1e947c9c330917cbf1a4b685555756f',
+            hashed_password: 'ef558e335c626ea2903d1302ac99581054d86593',
             salt: '0aacb7dd8deed04f67970531c86d13b0',
             firstname: Faker::Name.first_name,
             lastname: Faker::Name.last_name,
