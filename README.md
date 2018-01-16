@@ -7,7 +7,7 @@ All sensitive records will be depersonalized by Faker gem.
 How to use
 ----------
 
-- Clone project https://github.com/mikekolganov/redmine-db-obfuscator.git
+- Clone project https://github.com/DmitryKa/redmine-db-obfuscator.git
 - Run `bundle install`
 - Copy config/database.yml.example to config/database.yml
 - Clone database to another and set credentials to config/database.yml.
