@@ -84,7 +84,7 @@ class Obfuscator
     end
 
     def obfuscate_attachments
-      puts 'Obfuscationg attachments'
+      puts 'Obfuscating attachments'
       db[:attachments].select(:id).each do |attachment|
         db[:attachments].where(id: attachment[:id]).update(
           filename: Faker::Lorem.word,
@@ -95,7 +95,7 @@ class Obfuscator
     end
 
     def obfuscate_auth_sources
-      puts 'Obfuscationf Auth Sources'
+      puts 'Obfuscating Auth Sources'
       db[:auth_sources].select(:id).each do |auth_source|
         db[:auth_sources].where(id: auth_source[:id]).update(
           account: Faker::Internet.user_name,
@@ -105,7 +105,7 @@ class Obfuscator
     end
 
     def obfuscate_boards
-      puts 'Obfuscationg boards'
+      puts 'Obfuscating boards'
       db[:boards].select(:id).each do |board|
         db[:boards].where(id: board[:id]).update(
           name: Faker::Lorem.word,
