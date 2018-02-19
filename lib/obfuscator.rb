@@ -17,7 +17,7 @@ class Obfuscator
     end
 
     def obfuscate!
-      puts 'Obfuscation started.'
+      puts 'Obfuscation started...'
       %w(
         users
         projects
@@ -45,13 +45,13 @@ class Obfuscator
 
       obfuscate_quicktrack_settings if ENV['WITH_QUICKTRACK'].to_s == 'true'
 
-      puts 'Obfuscation completed.'
+      puts 'Obfuscation completed!'
     end
 
     private
 
     def obfuscate_users
-      puts 'Obfuscating users.'
+      puts 'Obfuscating users'
       db[:users].select(:id).each do |user|
         db[:users].where(id: user[:id]).update(
           login: Faker::Internet.user_name,
@@ -66,7 +66,7 @@ class Obfuscator
     end
 
     def obfuscate_issues
-      puts 'Obfuscating issues.'
+      puts 'Obfuscating issues'
       db[:issues].select(:id).each do |issue|
         db[:issues].where(id: issue[:id]).update(
           subject: Faker::Lorem.sentence(4)[0, 255],
@@ -76,7 +76,7 @@ class Obfuscator
     end
 
     def obfuscate_projects
-      puts 'Obfuscating projects.'
+      puts 'Obfuscating projects'
       db[:projects].select(:id).each do |project|
         db[:projects].where(id: project[:id]).update(
           name: Faker::Lorem.sentence(2)[0, 255],
