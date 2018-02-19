@@ -12,5 +12,6 @@ How to use
 - Copy config/database.yml.example to config/database.yml
 - Clone database to another and set credentials to config/database.yml.
 - __IMPORTANT: DO NOT RUN SCRIPT ON LIVE DATABASE! ALL DATA WILL BE LOST!__
+- Set `WITH_QUICKTRACK` environment variable to `true` to obfuscate Quicktrack plugin data too (if you use it)
 - Run `bundle exec bin/obfuscate`
 - Now you have depersonalized Redmine database

@@ -4,6 +4,7 @@ require 'mysql2'
 require 'sequel'
 require 'faker'
 require 'rufus-mnemo'
+require 'active_support/hash_with_indifferent_access'
 
 I18n.enforce_available_locales = false
 
@@ -41,6 +42,9 @@ class Obfuscator
         wiki_pages
         wiki_redirects
       ).each { |m| send("obfuscate_#{m}".to_sym) }
+
+      obfuscate_quicktrack_settings if ENV['WITH_QUICKTRACK'].to_s == 'true'
+
       puts 'Obfuscation completed.'
     end
 
@@ -292,6 +296,18 @@ class Obfuscator
       @identifiers << identifier
 
       identifier
+    end
+
+    def obfuscate_quicktrack_settings
+      puts 'Obfuscating user quicktrack settings'
+      db[:user_quicktrack_settings].each do |setting|
+        data_hash = YAML.load(setting[:data])
+        next unless data_hash && data_hash["hrvst-favorite"] && data_hash["hrvst-favorite"].is_a?(Hash)
+        data_hash["hrvst-favorite"].each do |_, entry|
+          entry['name'] = db[:projects].select(:name).where(id: entry['project']).first[:name]
+        end
+        db[:user_quicktrack_settings].where(id: setting[:id]).update(data: data_hash.to_yaml)
+      end
     end
   end
 end
